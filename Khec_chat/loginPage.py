@@ -13,6 +13,8 @@ from tkinter import ttk, messagebox
 
 def Authenticate():
     global root
+    global emailid
+    global msgLabel
     emailVal=emailid.get()
     print(emailVal)
     if emailVal=="Place your registered email...":
@@ -43,7 +45,9 @@ def Authenticate():
         
 def removePlaceholderOfemailEntry(*args):
     # global root
+    global emailEntry
     emailEntry.delete(0, 'end')
+    emailEntry.config(fg="black")
 
 
 
@@ -52,15 +56,16 @@ def removePlaceholderOfemailEntry(*args):
 
 def login(*args):
     global root
-    global regis
-    regis=Tk()
-    regis.destroy()
-    global main_screen
-    main_screen = Tk()
+    # global regis
+    global emailEntry
+    global emailid
+    global msgLabel
+    delete_register()
     # root = Toplevel(main_screen)
-    main_screen.destroy()
     
-    # delete_mainscreen()
+    delete_mainscreen()
+    
+    
 
     
     # Creating object of tk class  
@@ -79,6 +84,7 @@ def login(*args):
     emailEntry = Entry(root,textvariable=emailid, width=30,font=('Helveticabold',16),fg="#D2D2D2")
     emailEntry.grid(row=0, column=2, padx=5, pady=5)
     emailEntry.insert(0, 'Place your registered email...')
+    
 
     # Use bind method
     emailEntry.bind("<Button-1>", removePlaceholderOfemailEntry)
@@ -106,6 +112,7 @@ def CreateWidget():
     global Email
     global regis
     global email_name
+    global otp
     # Creating tkinter variables
     email_name = StringVar()
     otp = StringVar()
@@ -184,6 +191,7 @@ def sendOTP():
 
 # Defining validOTP() to validate user-input OTP mail with script generated OTP
 def validOTP():
+    global otp
     global regis
     global email_name
     global Email
@@ -213,7 +221,10 @@ def validOTP():
 def register(*args):
     global root
     global regis
+    
+    
     root.destroy()
+
     regis = Tk()
     # Setting the title, background color and disabling the resizing property
     regis.geometry("500x160")
@@ -245,7 +256,7 @@ def main_account_screen():
     Label(text="").pack()
     Button(text="Login", height="2", width="30", command = login).pack()
     Label(text="").pack()
-    Button(text="Register", height="2", width="30", command=login).pack()
+    Button(text="Register", height="2", width="30", command=register).pack()
  
     main_screen.mainloop()
 
@@ -253,5 +264,12 @@ def main_account_screen():
 def delete_mainscreen():
     global main_screen
     main_screen.destroy()
+def delete_login():
+    global root
+    root.destroy()
+def delete_register():
+    global regis
+    regis.destroy()  
+    login()      
  # ################################################################################### 
 main_account_screen() 
